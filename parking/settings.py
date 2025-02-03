@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-l#b3bnkx&!iny7c(4xj$b6a%uc4xfy99okh!z7uv(ona!&q!e$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
+
+ALLOWED_HOSTS = ['parking-muchilot.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition

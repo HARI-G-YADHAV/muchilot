@@ -1,1 +1,25 @@
-.vercel
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*.class
+
+# Django
+*.log
+local_settings.py
+staticfiles/
+
+# Virtual Environment
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

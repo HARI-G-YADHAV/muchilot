@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: slot
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn parking.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: parking.settings
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    autoDeploy: true
