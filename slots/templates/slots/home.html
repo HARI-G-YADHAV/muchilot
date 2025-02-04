@@ -28,6 +28,30 @@
             width: 100%;
             z-index: 1;
         }
+        .legend {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .legend h4 {
+            margin: 0 0 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Space between icon and text */
+            margin-bottom: 5px;
+        }
+        .legend-item img {
+            width: 20px; /* Adjust size of the icons */
+            height: 30px;
+        }
+
 
         @media (max-width: 768px) {
             h1 {
@@ -55,7 +79,7 @@
         document.querySelector('h1').textContent = 
             `Available ${vehicleType ? vehicleType.charAt(0).toUpperCase() + vehicleType.slice(1) : ''} Parking Spots`;
 
-        const map = L.map('map').setView([12.266185434079473, 75.1293574828205], 20);
+        const map = L.map('map').setView([12.266185434079473, 75.1293574828205], 15);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
@@ -109,7 +133,6 @@
                         .bindPopup(`
                             <b>${spot.name}</b><br>
                             Spot Number: ${spot.number}<br>
-                            Vehicle Type: ${spot.vehicle_type}<br>
                             Direction: <a href="https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
@@ -157,6 +180,48 @@
                 title: "Show my location"
             }
         }).addTo(map);
+
+        
+        const legend = L.control({ position: "bottomright" });
+
+        legend.onAdd = function (map) {
+            let div = L.DomUtil.create("div", "legend");
+            div.innerHTML += "<h4 style='margin: 5px 0; font-size: 14px;'>Label</h4>";
+            div.innerHTML += `
+                <table style="border-collapse: collapse; width: auto; font-size: 12px;">
+                    <tr>
+                        <td style="padding: 3px;">
+                            <i style="background: url(https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png) no-repeat center center; 
+                            background-size: contain; width: 15px; height: 22px; display: inline-block;"></i>
+                        </td>
+                        <td style="padding: 3px; vertical-align: middle;">Available</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px;">
+                            <i style="background: url(https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png) no-repeat center center; 
+                            background-size: contain; width: 15px; height: 22px; display: inline-block;"></i>
+                        </td>
+                        <td style="padding: 3px; vertical-align: middle;">Closed</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 3px;">
+                            <i style="background: url(https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png) no-repeat center center; 
+                            background-size: contain; width: 15px; height: 22px; display: inline-block;"></i>
+                        </td>
+                        <td style="padding: 3px; vertical-align: middle;">Unavailable</td>
+                    </tr>
+                </table>
+            `;
+            return div;
+        };
+
+        
+        legend.addTo(map);
+
+
+
+       
+
     </script>
 </body>
 </html>
